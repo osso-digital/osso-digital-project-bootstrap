@@ -1,9 +1,25 @@
-# osso-digital-email-automation
+# OSSO-DIGITAL — Email Automation System
 
-Projeto criado automaticamente pela OSSO-DIGITAL.
+Backend-first automation system designed to reduce email overload by eliminating redundancy, spam and irrelevant notifications before the user opens the inbox.
 
-## Objetivo
-Automatizar a criação de projetos profissionais com foco em backend, automação e produto.
+## Core idea
+Configure once. Forget forever.
 
-## Criado em
-13/01/2026 16:44
+## What this system does
+- Reduces repeated emails from the same sender
+- Prioritizes important communication
+- Cleans promotional and social noise
+- Runs automatically on a VPS (24/7)
+
+## Architecture
+- Python backend (automation engine)
+- IMAP / Email APIs
+- VPS (DigitalOcean)
+- Mobile App (control panel only)
+
+## Product vision
+This is not an email client.
+It is a decision-elimination system.
+
+## Project status
+Active development — OSSO-DIGITAL product.
