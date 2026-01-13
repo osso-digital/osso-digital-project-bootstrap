@@ -1,10 +1,20 @@
 import os
+from pathlib import Path
 from datetime import datetime
 
+# ===============================
+# CONFIG
+# ===============================
 PROJECT_NAME = "osso-digital-email-automation"
+ROOT = Path.cwd()  # assume execução na raiz do repo
 
-FILES = {
-    "README.md": """# OSSO-DIGITAL — Email Automation System
+NOW = datetime.now().strftime("%d/%m/%Y %H:%M")
+
+# ===============================
+# FILE STRUCTURE + CONTENT
+# ===============================
+STRUCTURE = {
+    "README.md": f"""# OSSO-DIGITAL — Email Automation System
 
 Backend-first automation system designed to reduce email overload by eliminating redundancy, spam and irrelevant notifications before the user opens the inbox.
 
@@ -15,18 +25,23 @@ Configure once. Forget forever.
 - Reduces repeated emails from the same sender
 - Prioritizes important communication
 - Cleans promotional and social noise
-- Runs automatically on the server
+- Runs automatically on the server (24/7)
 
 ## Stack
 - Python (backend automation)
-- VPS (DigitalOcean, 24/7)
+- VPS (DigitalOcean)
 - Mobile App (control panel)
 - IMAP / Email APIs
 
 ## Project status
 Under active development as an OSSO-DIGITAL product.
+
+Created on {NOW}
 """,
 
+    # ===============================
+    # DOCS
+    # ===============================
     "docs/PRODUCT_VISION.md": """# Product Vision
 
 This project was created to solve a real and recurring problem: email overload.
@@ -78,6 +93,9 @@ Phase 3:
 - SaaS packaging
 """,
 
+    # ===============================
+    # BACKEND
+    # ===============================
     "backend/README.md": """# Backend
 
 This folder contains the Python backend responsible for all automation logic.
@@ -85,22 +103,28 @@ This folder contains the Python backend responsible for all automation logic.
 The backend runs continuously on a VPS and connects directly to email servers.
 """,
 
+    "backend/app/__init__.py": "",
+    "backend/app/config.py": "# Environment configuration loader\n",
     "backend/app/main.py": '''"""
 OSSO-DIGITAL Email Automation
 Main entry point
 """
+def main():
+    print("OSSO-DIGITAL Email Automation running")
+
+if __name__ == "__main__":
+    main()
 ''',
 
-    "backend/app/config.py": "# Configuration loader\n",
-    "backend/app/email_client.py": "# IMAP email client\n",
+    "backend/app/email_client.py": "# IMAP email client abstraction\n",
     "backend/app/deduplicator.py": "# Deduplication logic\n",
     "backend/app/rules_engine.py": "# Rules engine\n",
     "backend/app/classifier.py": "# Email classifier\n",
     "backend/app/cleaner.py": "# Cleaning engine\n",
     "backend/app/logger.py": "# Logging system\n",
-    "backend/app/__init__.py": "",
 
-    "backend/storage/README.md": "# Storage for decisions and logs\n",
+    "backend/storage/.gitkeep": "",
+    "backend/storage/README.md": "Storage for decisions, logs and audit trails\n",
 
     "backend/.env.example": """EMAIL_PROVIDER=
 EMAIL_USER=
@@ -112,28 +136,44 @@ IMAP_SERVER=
 imaplib2
 """,
 
+    # ===============================
+    # MOBILE
+    # ===============================
     "mobile/README.md": """# Mobile App
 
 This app is a control panel for the email automation backend.
 
-It does not read or store emails.
-"""
+- No email processing
+- No email storage
+- Backend-first architecture
+""",
+
+    "mobile/ui-mockups/.gitkeep": "",
+
+    # ===============================
+    # SCRIPTS
+    # ===============================
+    "scripts/.gitkeep": ""
 }
 
-def create_file(path, content):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(content)
+# ===============================
+# ENGINE
+# ===============================
+def create_file(path: Path, content: str):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
 
 def main():
-    os.makedirs(PROJECT_NAME, exist_ok=True)
-    os.chdir(PROJECT_NAME)
+    print("🦴 OSSO-DIGITAL Project Bootstrap")
+    print(f"📁 Root: {ROOT}")
+    print(f"🕒 {NOW}\n")
 
-    for path, content in FILES.items():
-        create_file(path, content)
+    for relative_path, content in STRUCTURE.items():
+        full_path = ROOT / relative_path
+        create_file(full_path, content)
 
-    print(f"✅ Project '{PROJECT_NAME}' created successfully")
-    print(f"📦 Structure generated at {datetime.now().strftime('%d/%m/%Y %H:%M')}")
+    print("✅ Full project structure created successfully")
+    print("🚀 Ready for git add / commit / push")
 
 if __name__ == "__main__":
     main()
