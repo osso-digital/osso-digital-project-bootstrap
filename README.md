@@ -11,15 +11,11 @@ Configure once. Forget forever.
 - Cleans promotional and social noise
 - Runs automatically on a VPS (24/7)
 
-## Architecture
-- Python backend (automation engine)
-- IMAP / Email APIs
+## Stack
+- Python (automation backend)
 - VPS (DigitalOcean)
-- Mobile App (control panel only)
-
-## Product vision
-This is not an email client.
-It is a decision-elimination system.
+- Mobile App (control panel)
+- IMAP / Email APIs
 
 ## Project status
-Active development — OSSO-DIGITAL product.
+Under active development as an OSSO-DIGITAL product.
